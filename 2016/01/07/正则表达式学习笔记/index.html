@@ -17,9 +17,9 @@
 $    匹配字符串的结束
 
 字符转义
-\\.
-\\*
-\\\">
+\.
+\*
+\\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式学习笔记">
 <meta property="og:url" content="http://yoursite.com/2016/01/07/正则表达式学习笔记/index.html">
@@ -36,10 +36,10 @@ $    匹配字符串的结束
 $    匹配字符串的结束
 
 字符转义
-\\.
-\\*
-\\\">
-<meta property="og:updated_time" content="2016-01-07T15:45:17.000Z">
+\.
+\*
+\\">
+<meta property="og:updated_time" content="2016-01-07T16:11:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式学习笔记">
 <meta name="twitter:description" content="date: 2016-01-07 22:57:25
@@ -54,9 +54,9 @@ $    匹配字符串的结束
 $    匹配字符串的结束
 
 字符转义
-\\.
-\\*
-\\\">
+\.
+\*
+\\">
   
     <link rel="alternative" href="/atom.xml" title="克逊的个人博客" type="application/atom+xml">
   
@@ -136,16 +136,16 @@ $    匹配字符串的结束
 $    匹配字符串的结束
 </code></pre></li>
 <li><p>字符转义</p>
-<pre><code>\\.
-\\*
-\\\
+<pre><code>\.
+\*
+\\
 </code></pre></li>
 </ol>
 <a id="more"></a>
 <ol>
 <li><p>常用的限定符</p>
-<pre><code>\*    重复零次或更多次
-\+    重复一次或更多次
+<pre><code>*    重复零次或更多次
++    重复一次或更多次
 ?    重复零次或一次
 {n}    重复 n 次
 {n,}    重复 n 次或更多次
@@ -157,17 +157,18 @@ $    匹配字符串的结束
 <li><p>实例</p>
 </li>
 </ol>
-<p>假如我要匹配号码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
+<p>例一：<br>假如我要匹配号码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
 <p>第一种方法：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="command">\(</span>?0<span class="command">\d</span><span class="special">&#123;</span>2<span class="special">&#125;</span><span class="command">\)</span>?<span class="special">[</span>- <span class="special">]</span>?<span class="command">\d</span><span class="special">&#123;</span>8<span class="special">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p>这种方法能匹配到(036)-22334345 但是也能匹配到(036-22334345 或者036)-22334345  因为在表达式中 ( 和 )后面跟上了？，表示(可以出现，也可以不出现， )可以出现也可以不出现。 但是我的需求是()必须成对出现，或者一个都不出现。</p>
 <p>第二种方法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\(<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;\)[- ]?\d&#123;<span class="number">8</span>&#125;|^<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;[- ]?\d&#123;<span class="number">8</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <p>匹配结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
 <p>这里用来 “|”符号，这个其实就是一个分支条件，要么满足前面一种情况，要么满足后面一种情况。前面的写法中，我把第一种方法中的（）后面的？都去掉了，这就意味着只能同时匹配到（）才能满足条件。 “|”后面一种情况中，我把（）都去掉，表示结果中不能出现（）。把这两种条件组合起来，就满足了我前面的需求。</p>
+<p>例二：<br>假设我要匹配 12345-1234 或者 12345<br>我用<br>        \d{5}|\d{5}-\d{4}<br>我永远只能匹配到 12345-1234中的前5位 12345。 这是为什么呢？因为匹配分支条件时，都是从左往右匹配，如果条件满足了，就会结束匹配。因此，应该把表达式写成<br>        \d{5}-\d{4}|\d{5}</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij4fe8ef0002r0lzg0vptz7o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij4ge4ih0002nklzic8u1m8r" class="article-share-link">Share</a>
       
       
     </footer>
