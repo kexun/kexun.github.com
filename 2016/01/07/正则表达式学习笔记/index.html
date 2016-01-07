@@ -19,7 +19,7 @@
 常用的元字符| 代码 | 说明 ||——–|——–||    .    |      匹配除换行符以外的任意字符  ||\w|匹配字母或数字或下划线或汉字||\s    |匹配任意的空白符||\d    |匹配数字||\b    |匹配单词的开始或结束||^    |匹配字符串的开始||$|    匹配字符串的结束|
 
 字符转义| 代码 ||—">
-<meta property="og:updated_time" content="2016-01-07T15:34:21.000Z">
+<meta property="og:updated_time" content="2016-01-07T15:36:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式学习笔记">
 <meta name="twitter:description" content="date: 2016-01-07 22:57:25
@@ -113,11 +113,25 @@
 <p>第二种方法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\(<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;\)[- ]?\d&#123;<span class="number">8</span>&#125;|^<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;[- ]?\d&#123;<span class="number">8</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <p>匹配结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
 <p>这里用来 “|”符号，这个其实就是一个分支条件，要么满足前面一种情况，要么满足后面一种情况。前面的写法中，我把第一种方法中的（）后面的？都去掉了，这就意味着只能同时匹配到（）才能满足条件。 “|”后面一种情况中，我把（）都去掉，表示结果中不能出现（）。把这两种条件组合起来，就满足了我前面的需求。</p>
+<table>
+<thead>
+<tr>
+<th>column</th>
+<th>column</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阿萨德发</td>
+<td>阿斯顿发生发的</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij4f04ff0002nolz7tbqlpsb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij4f2bya0002tklzh7yev66n" class="article-share-link">Share</a>
       
       
     </footer>
