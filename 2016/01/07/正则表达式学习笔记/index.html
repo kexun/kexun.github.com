@@ -39,7 +39,8 @@ $    匹配字符串的结束
 \.
 \*
 \\">
-<meta property="og:updated_time" content="2016-01-07T16:11:37.000Z">
+<meta property="og:image" content="http://k.sinaimg.cn/www/qc/photo_auto/photo/37/72/62143772/62143772_950.jpg/w580h386t50ee6.jpg">
+<meta property="og:updated_time" content="2016-01-08T02:35:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式学习笔记">
 <meta name="twitter:description" content="date: 2016-01-07 22:57:25
@@ -164,11 +165,12 @@ $    匹配字符串的结束
 <p>匹配结果：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
 <p>这里用来 “|”符号，这个其实就是一个分支条件，要么满足前面一种情况，要么满足后面一种情况。前面的写法中，我把第一种方法中的（）后面的？都去掉了，这就意味着只能同时匹配到（）才能满足条件。 “|”后面一种情况中，我把（）都去掉，表示结果中不能出现（）。把这两种条件组合起来，就满足了我前面的需求。</p>
 <p>例二：<br>假设我要匹配 12345-1234 或者 12345<br>我用<br>        \d{5}|\d{5}-\d{4}<br>我永远只能匹配到 12345-1234中的前5位 12345。 这是为什么呢？因为匹配分支条件时，都是从左往右匹配，如果条件满足了，就会结束匹配。因此，应该把表达式写成<br>        \d{5}-\d{4}|\d{5}</p>
+<p>匹配html中的图片链接：<br>        (?&lt;=img(.<em>?)(src=”))[\s|\S][^”]</em>(?=”)<br>文本内容：<br>        <img dsd="" src="http://k.sinaimg.cn/www/qc/photo_auto/photo/37/72/62143772/62143772_950.jpg/w580h386t50ee6.jpg" alt="一分钟 体验全新Passat B8 Variant"><br>匹配结果：<br>        <a href="http://k.sinaimg.cn/www/qc/photo_auto/photo/37/72/62143772/62143772_950.jpg/w580h386t50ee6.jpg" target="_blank" rel="external">http://k.sinaimg.cn/www/qc/photo_auto/photo/37/72/62143772/62143772_950.jpg/w580h386t50ee6.jpg</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij4ge4ih0002nklzic8u1m8r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij52nhvn000228lz89obwjsk" class="article-share-link">Share</a>
       
       
     </footer>
