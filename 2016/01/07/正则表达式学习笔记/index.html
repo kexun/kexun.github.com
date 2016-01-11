@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="克逊的个人博客">
 <meta property="og:description" content="date: 2016-01-07 22:57:25
 本文记录了正则表达式的一些常规语法，和对应的例子。算是对这几天来的学习总结。">
-<meta property="og:updated_time" content="2016-01-09T16:38:59.000Z">
+<meta property="og:updated_time" content="2016-01-11T15:57:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式学习笔记">
 <meta name="twitter:description" content="date: 2016-01-07 22:57:25
@@ -88,36 +88,24 @@
         <p>date: 2016-01-07 22:57:25</p>
 <p>本文记录了正则表达式的一些常规语法，和对应的例子。算是对这几天来的学习总结。</p>
 <a id="more"></a>
-<ol>
-<li><p>常用的元字符</p>
-<pre><code>.    匹配除换行符以外的任意字符
+<h5 id="1-__u5E38_u7528_u7684_u5143_u5B57_u7B26"><a href="#1-__u5E38_u7528_u7684_u5143_u5B57_u7B26" class="headerlink" title="1. 常用的元字符"></a>1. 常用的元字符</h5><pre><code>.    匹配除换行符以外的任意字符
 \w    匹配字母或数字或下划线
 \s    匹配任意的空白符
 \d    匹配数字
 \b    匹配单词的开始或结束
 ^    匹配字符串的开始
 $    匹配字符串的结束
-</code></pre></li>
-<li><p>字符转义</p>
-<pre><code>\.
+</code></pre><h5 id="2-__u5B57_u7B26_u8F6C_u4E49"><a href="#2-__u5B57_u7B26_u8F6C_u4E49" class="headerlink" title="2. 字符转义"></a>2. 字符转义</h5><pre><code>\.
 \*
 \\
-</code></pre></li>
-<li><p>常用的限定符</p>
-<pre><code>*    重复零次或更多次
+</code></pre><h5 id="3-__u5E38_u7528_u7684_u9650_u5B9A_u7B26"><a href="#3-__u5E38_u7528_u7684_u9650_u5B9A_u7B26" class="headerlink" title="3. 常用的限定符"></a>3. 常用的限定符</h5><pre><code>*    重复零次或更多次
 +    重复一次或更多次
 ?    重复零次或一次
 {n}    重复 n 次
 {n,}    重复 n 次或更多次
 {n,m}    重复 n 到 m 次
-</code></pre></li>
-<li><p>分支条件</p>
-<pre><code>|  其实就是一种或的关系
-</code></pre></li>
-<li><p>实例</p>
-</li>
-</ol>
-<p>例一：<br>假如我要匹配号码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
+</code></pre><h5 id="4-__u5206_u652F_u6761_u4EF6"><a href="#4-__u5206_u652F_u6761_u4EF6" class="headerlink" title="4. 分支条件"></a>4. 分支条件</h5><pre><code>|  其实就是一种或的关系
+</code></pre><h5 id="5-__u5B9E_u4F8B"><a href="#5-__u5B9E_u4F8B" class="headerlink" title="5. 实例"></a>5. 实例</h5><p>例一：<br>假如我要匹配号码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">036</span>)-<span class="number">22334345</span>,<span class="number">036</span>-<span class="number">22334345</span>,(<span class="number">036</span>) <span class="number">22334345</span>,<span class="number">036</span> <span class="number">22334345</span></span><br></pre></td></tr></table></figure></p>
 <p>第一种方法：<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="command">\(</span>?0<span class="command">\d</span><span class="special">&#123;</span>2<span class="special">&#125;</span><span class="command">\)</span>?<span class="special">[</span>- <span class="special">]</span>?<span class="command">\d</span><span class="special">&#123;</span>8<span class="special">&#125;</span></span><br></pre></td></tr></table></figure></p>
 <p>这种方法能匹配到(036)-22334345 但是也能匹配到(036-22334345 或者036)-22334345  因为在表达式中 ( 和 )后面跟上了？，表示(可以出现，也可以不出现， )可以出现也可以不出现。 但是我的需求是()必须成对出现，或者一个都不出现。</p>
 <p>第二种方法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\(<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;\)[- ]?\d&#123;<span class="number">8</span>&#125;|^<span class="number">0</span>\d&#123;<span class="number">2</span>&#125;[- ]?\d&#123;<span class="number">8</span>&#125;</span><br></pre></td></tr></table></figure></p>
@@ -125,21 +113,22 @@ $    匹配字符串的结束
 <p>这里用来 “|”符号，这个其实就是一个分支条件，要么满足前面一种情况，要么满足后面一种情况。前面的写法中，我把第一种方法中的（）后面的？都去掉了，这就意味着只能同时匹配到（）才能满足条件。 “|”后面一种情况中，我把（）都去掉，表示结果中不能出现（）。把这两种条件组合起来，就满足了我前面的需求。</p>
 <p>例二：<br>假设我要匹配 12345-1234 或者 12345<br>我用<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\d&#123;<span class="number">5</span>&#125;|\d&#123;<span class="number">5</span>&#125;-\d&#123;<span class="number">4</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我永远只能匹配到 12345-1234中的前5位 12345。 这是为什么呢？因为匹配分支条件时，都是从左往右匹配，如果条件满足了，就会结束匹配。因此，应该把表达式写成<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\d&#123;<span class="number">5</span>&#125;-\d&#123;<span class="number">4</span>&#125;|\d&#123;<span class="number">5</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>6.分组</p>
-<p>前面讲到了对单个字符的重复次数操作，现在教你如何对多个字符做重复操作。多个字符可以看成是一个带（）的子表达式。<br>例三：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\d&#123;<span class="number">1</span>,<span class="number">3</span>\.&#125;)&#123;<span class="number">3</span>&#125;\d&#123;<span class="number">1</span>,<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="6-_u5206_u7EC4"><a href="#6-_u5206_u7EC4" class="headerlink" title="6.分组"></a>6.分组</h5><p>前面讲到了对单个字符的重复次数操作，现在教你如何对多个字符做重复操作。多个字符可以看成是一个带（）的子表达式。<br>例三：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\d&#123;<span class="number">1</span>,<span class="number">3</span>\.&#125;)&#123;<span class="number">3</span>&#125;\d&#123;<span class="number">1</span>,<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <p>匹配结果 255.255.255.215，(\d{1,3.})匹配ip地址的每一项，{3}表示重复三次，\d{1,3}表示匹配最后一项<br>但是这个表达式是有缺陷的，对ip地址中的每一项大小无法约束，如：555.555.555.555也能匹配上。<br>优化后的表达式：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^((<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]\d|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|[<span class="number">01</span>]?\d\d)\.)&#123;<span class="number">3</span>&#125;(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]\d|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|[<span class="number">01</span>]?\d\d)$</span><br></pre></td></tr></table></figure></p>
-<p>7.反义<br><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\W</span>	匹配任意不是字母，数字，下划线</span><br><span class="line"><span class="string">\S</span>	匹配任意不是空白符的字符</span><br><span class="line"><span class="string">\D</span>	匹配任意非数字的字符</span><br><span class="line"><span class="string">\B</span>	匹配不是单词开头或结束的位置</span><br><span class="line">[^x]	匹配除了x以外的任意字符</span><br><span class="line">[^aeiou]	匹配除了aeiou这几个字母以外的任意字符</span><br></pre></td></tr></table></figure></p>
-<p>8.后向引用<br>我在分组中捕获的内容，如果在后面还想引用的话，可以使用向后引用的方式。规则如下，每一个分组都会对应一个编号，从左向右 1,2,3…<br>例如我要匹配255.255.255.255，改造如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]\d|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|[<span class="number">01</span>]?\d\d)\.(\<span class="number">1</span>)\.(\<span class="number">1</span>)\.(\<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<h5 id="7-_u53CD_u4E49"><a href="#7-_u53CD_u4E49" class="headerlink" title="7.反义"></a>7.反义</h5><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\W</span>	匹配任意不是字母，数字，下划线</span><br><span class="line"><span class="string">\S</span>	匹配任意不是空白符的字符</span><br><span class="line"><span class="string">\D</span>	匹配任意非数字的字符</span><br><span class="line"><span class="string">\B</span>	匹配不是单词开头或结束的位置</span><br><span class="line">[^x]	匹配除了x以外的任意字符</span><br><span class="line">[^aeiou]	匹配除了aeiou这几个字母以外的任意字符</span><br></pre></td></tr></table></figure>
+<h5 id="8-_u540E_u5411_u5F15_u7528"><a href="#8-_u540E_u5411_u5F15_u7528" class="headerlink" title="8.后向引用"></a>8.后向引用</h5><p>我在分组中捕获的内容，如果在后面还想引用的话，可以使用向后引用的方式。规则如下，每一个分组都会对应一个编号，从左向右 1,2,3…<br>例如我要匹配255.255.255.255，改造如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span>[<span class="number">0</span>-<span class="number">4</span>]\d|<span class="number">25</span>[<span class="number">0</span>-<span class="number">5</span>]|[<span class="number">01</span>]?\d\d)\.(\<span class="number">1</span>)\.(\<span class="number">1</span>)\.(\<span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
 <p>（\1）会自动引用第一次匹配到的结果</p>
-<p>9.零宽断言</p>
-<p>例三：<br>匹配html中的图片链接：<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">?&lt;=img</span><span class="list">(<span class="keyword">.*?</span>)</span><span class="list">(<span class="keyword">src=</span><span class="string">"))[\s|\S][^"</span>]*<span class="list">(<span class="keyword">?=</span><span class="string">")</span></span></span></span></span><br></pre></td></tr></table></figure></p>
+<h5 id="9-_u96F6_u5BBD_u65AD_u8A00"><a href="#9-_u96F6_u5BBD_u65AD_u8A00" class="headerlink" title="9.零宽断言"></a>9.零宽断言</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(?=<span class="built_in">exp</span>)</span><br><span class="line">零宽度正预测先行断言，它断言自身出现的位置的后面能匹配表达式 <span class="built_in">exp</span>，如\d&#123;<span class="number">3</span>&#125;(?=度) 能匹配 <span class="number">360</span>度，但是结果不包含“度”</span><br><span class="line">(?&lt;=<span class="built_in">exp</span>)</span><br><span class="line">零宽度正回顾后发断言，它断言自身出现的位置的前面能匹配表达式 <span class="built_in">exp</span>， 如(?&lt;=src=\<span class="string">")\w+ 能匹配结果src="</span>http 但不包含src=</span><br><span class="line">(?!<span class="built_in">exp</span>)</span><br><span class="line">断言此位置的后面不能匹配表达式 <span class="built_in">exp</span>，其实就是第一种表达式的逆情况，\d&#123;<span class="number">3</span>&#125;(?!度) 能匹配除了“度”结尾的任何情况</span><br><span class="line">(?&lt;!<span class="built_in">exp</span>)</span><br><span class="line">零宽度负回顾后发断言来断言此位置的前面不能匹配表达式<span class="built_in">exp</span>， 第二种表达式的逆情况，(?&lt;！src=\<span class="string">")\w+ 能匹配以src="</span>开头的任何情况。</span><br></pre></td></tr></table></figure>
+<p>例四：<br>匹配html中的图片链接：<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">?&lt;=img</span><span class="list">(<span class="keyword">.*?</span>)</span><span class="list">(<span class="keyword">src=</span><span class="string">"))[\s|\S][^"</span>]*<span class="list">(<span class="keyword">?=</span><span class="string">")</span></span></span></span></span><br></pre></td></tr></table></figure></p>
 <p>文本内容：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img dsd src="http://k.sinaimg.cn/www/qc/photo_auto/photo/<span class="number">37/72/62143</span><span class="number">772/62143</span><span class="number">772_950</span>.jpg/w<span class="number">580h386</span>t50ee6.jpg" alt="一分钟 体验全新Passat B8 Variant"&gt;</span><br></pre></td></tr></table></figure></p>
 <p>匹配结果：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://k.sinaimg.cn/www/qc/photo_auto/photo/<span class="number">37/72/62143</span><span class="number">772/62143</span><span class="number">772_950</span>.jpg/w<span class="number">580h386</span>t50ee6.jpg</span><br></pre></td></tr></table></figure></p>
+<h5 id="10-_u6CE8_u91CA"><a href="#10-_u6CE8_u91CA" class="headerlink" title="10.注释"></a>10.注释</h5><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">?#comment</span>)</span></span><br></pre></td></tr></table></figure>
+<h5 id="11-__u8D2A_u5A6A_u4E0E_u61D2_u60F0"><a href="#11-__u8D2A_u5A6A_u4E0E_u61D2_u60F0" class="headerlink" title="11. 贪婪与懒惰"></a>11. 贪婪与懒惰</h5><p>通常我们在匹配的时候会遇到下面两种情况， abababab， 当我需要匹配a.*b的时候， 到底是匹配到ab呢，还是匹配到abababab？<br>如果是第一种，则称之为懒惰匹配。 如果是第二种情况，则称之为贪婪匹配。<br>通常正则表达式在匹配的过程中会采取贪婪的匹配模式，因此当我们需要采取懒惰匹配模式的时候，可以使用下面几种限定符：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">*?		重复任意次，但尽可能少重复</span></span><br><span class="line">+?		重复1此或更多次，但尽可能少重复</span><br><span class="line">??		重复0此或1次，但尽可能少重复</span><br><span class="line">&#123;<span class="keyword">n</span>.<span class="keyword">m</span>&#125;?	重复<span class="keyword">n</span>到<span class="keyword">m</span>次，但尽可能少重复</span><br><span class="line">&#123;<span class="keyword">n</span>,&#125;?	重复<span class="keyword">n</span>此以上，但尽可能少重复</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cij7c78f10002dwlzamnkv0tf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cija5lxs50002hslz31h257fg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -147,6 +136,15 @@ $    匹配字符串的结束
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/01/10/敏感词过滤/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          敏感词过滤
+        
+      </div>
+    </a>
   
   
     <a href="/2016/01/07/资源池/" id="article-nav-older" class="article-nav-link-wrap">
@@ -192,7 +190,7 @@ $    匹配字符串的结束
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">7</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -202,6 +200,10 @@ $    匹配字符串的结束
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/01/10/敏感词过滤/">敏感词过滤</a>
+          </li>
         
           <li>
             <a href="/2016/01/07/正则表达式学习笔记/">正则表达式学习笔记</a>
@@ -217,10 +219,6 @@ $    匹配字符串的结束
         
           <li>
             <a href="/2016/01/06/mybatis-user-guide/">mybatis-user-guide</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/06/temp/">临时笔记</a>
           </li>
         
       </ul>
