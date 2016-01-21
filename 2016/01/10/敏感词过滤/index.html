@@ -14,7 +14,9 @@
 <meta property="og:description" content="date: 2016-01-10 23:10:20tags:
 1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版">
 <meta property="og:image" content="http://yoursite.com/images/1.png">
-<meta property="og:updated_time" content="2016-01-21T08:13:43.000Z">
+<meta property="og:image" content="http://yoursite.com/images/2.png">
+<meta property="og:image" content="http://yoursite.com/images/3.png">
+<meta property="og:updated_time" content="2016-01-21T08:16:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="敏感词过滤">
 <meta name="twitter:description" content="date: 2016-01-10 23:10:20tags:
@@ -95,13 +97,13 @@
 <p>接下来过滤文本内容。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> i = beginIndex; i &lt; txt.length() ; i++)&#123;</span><br><span class="line">			word = txt.charAt(i);</span><br><span class="line">			nowMap = (<span class="built_in">Map</span>) nowMap.<span class="literal">get</span>(word);     <span class="comment">//获取指定key</span></span><br><span class="line">			<span class="keyword">if</span>(nowMap != <span class="keyword">null</span>)&#123;     <span class="comment">//存在，则判断是否为最后一个</span></span><br><span class="line">				matchFlag++;     <span class="comment">//找到相应key，匹配标识+1 </span></span><br><span class="line">				<span class="keyword">if</span>(<span class="string">"1"</span>.equals(nowMap.<span class="literal">get</span>(<span class="string">"isEnd"</span>)))&#123;       <span class="comment">//如果为最后一个匹配规则,结束循环，返回匹配标识数</span></span><br><span class="line">					flag = <span class="keyword">true</span>;       <span class="comment">//结束标志位为true   </span></span><br><span class="line">					<span class="keyword">if</span>(SensitivewordFilter.minMatchTYpe == matchType)&#123;    <span class="comment">//最小规则，直接返回,最大规则还需继续查找</span></span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;     <span class="comment">//不存在，直接返回</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure></p>
 <p>对特殊字符过滤<br>有时候敏感词会出现一些变体，如强，，，奸 强   奸   强*，，，奸。<br>这个时候就需要对文本做一些预处理。方法如下：<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> <span class="built_in">regexp</span> = <span class="string">"[^a-zA-Z0-9\u4E00-\u9FA5]"</span>;</span><br><span class="line"><span class="built_in">String</span> content = <span class="string">"强，，，奸 强   奸   强*，，，奸"</span>;</span><br><span class="line"><span class="built_in">String</span> str = content.replaceAll(<span class="built_in">regexp</span>, <span class="string">""</span>);</span><br></pre></td></tr></table></figure></p>
 <p>效果杠杠的</p>
-<p>#####3.测试数据<br><a href="/images/2.png"></a><br>如图所示，敏感词库共有1071课树，匹配的文本共1636字，包含94个铭感词，完全匹配出来只需3毫秒。</p>
-<p><a href="/images/3.png"></a><br>如果在相同测试条件下，只需判断文本中是否存在铭感词，则效率更快，只需0毫秒。</p>
+<p>#####3.测试数据<br><img src="/images/2.png" alt=""><br>如图所示，敏感词库共有1071课树，匹配的文本共1636字，包含94个铭感词，完全匹配出来只需3毫秒。</p>
+<p><img src="/images/3.png" alt=""><br>如果在相同测试条件下，只需判断文本中是否存在铭感词，则效率更快，只需0毫秒。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzfk3z00034clzza8kgv94" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzizy80003fglzjbsnhe2j" class="article-share-link">Share</a>
       
       
     </footer>
