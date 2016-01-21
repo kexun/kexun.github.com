@@ -6,22 +6,19 @@
   <title>敏感词过滤 | 克逊的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="date: 2016-01-10 23:10:20tags:
-1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版
-2.简介DFA即Deterministic Finite Automaton，也就是确定有穷自动机，它是通过event和当前的state得到下一个state，即event+state=nextstate。闲话不多说">
+1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版">
 <meta property="og:type" content="article">
 <meta property="og:title" content="敏感词过滤">
 <meta property="og:url" content="http://yoursite.com/2016/01/10/敏感词过滤/index.html">
 <meta property="og:site_name" content="克逊的个人博客">
 <meta property="og:description" content="date: 2016-01-10 23:10:20tags:
-1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版
-2.简介DFA即Deterministic Finite Automaton，也就是确定有穷自动机，它是通过event和当前的state得到下一个state，即event+state=nextstate。闲话不多说">
+1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版">
 <meta property="og:image" content="http://yoursite.com/images/1.png">
-<meta property="og:updated_time" content="2016-01-21T08:11:37.000Z">
+<meta property="og:updated_time" content="2016-01-21T08:13:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="敏感词过滤">
 <meta name="twitter:description" content="date: 2016-01-10 23:10:20tags:
-1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版
-2.简介DFA即Deterministic Finite Automaton，也就是确定有穷自动机，它是通过event和当前的state得到下一个state，即event+state=nextstate。闲话不多说">
+1. 参考文献编程珠玑 - 算法优化 - 过滤敏感词NFA/DFA算法Java实现敏感词过滤DFA敏感词过滤——java版">
   
     <link rel="alternative" href="/atom.xml" title="克逊的个人博客" type="application/atom+xml">
   
@@ -91,6 +88,7 @@
       
         <p>date: 2016-01-10 23:10:20<br>tags:</p>
 <h5 id="1-__u53C2_u8003_u6587_u732E"><a href="#1-__u53C2_u8003_u6587_u732E" class="headerlink" title="1. 参考文献"></a>1. 参考文献</h5><p><a href="http://my.oschina.net/fangxu/blog/32380" target="_blank" rel="external">编程珠玑 - 算法优化 - 过滤敏感词</a><br><a href="http://blog.csdn.net/yukuninfoaxiom/article/details/6057736" target="_blank" rel="external">NFA/DFA算法</a><br><a href="http://blog.csdn.net/chenssy/article/details/26961957" target="_blank" rel="external">Java实现敏感词过滤</a><br><a href="http://www.iteye.com/topic/1116520" target="_blank" rel="external">DFA敏感词过滤——java版</a></p>
+<a id="more"></a>
 <h5 id="2-_u7B80_u4ECB"><a href="#2-_u7B80_u4ECB" class="headerlink" title="2.简介"></a>2.简介</h5><p>DFA即Deterministic Finite Automaton，也就是确定有穷自动机，它是通过event和当前的state得到下一个state，即event+state=nextstate。<br>闲话不多说，直接上图：<br><img src="/images/1.png" alt=""><br>将此图翻译成代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">中 = &#123;</span><br><span class="line">   isEnd = <span class="number">0</span></span><br><span class="line">   国 = &#123;&lt;br&gt;</span><br><span class="line">     isEnd = <span class="number">1</span></span><br><span class="line">        人 = &#123;isEnd = <span class="number">0</span></span><br><span class="line">             民 = &#123;isEnd = <span class="number">1</span>&#125;</span><br><span class="line">             &#125;</span><br><span class="line">        男  = &#123;</span><br><span class="line">               isEnd = <span class="number">0</span></span><br><span class="line">                人 = &#123;</span><br><span class="line">                     isEnd = <span class="number">1</span></span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line">五 = &#123;</span><br><span class="line">   isEnd = <span class="number">0</span></span><br><span class="line">   星 = &#123;</span><br><span class="line">    isEnd = <span class="number">0</span></span><br><span class="line">    红 = &#123;</span><br><span class="line">           isEnd = <span class="number">0</span></span><br><span class="line">           旗 = &#123;</span><br><span class="line">                isEnd = <span class="number">1</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>算法的关键就是组装成一个带有状态的tree。</p>
 <p>第一步，在hashmap中查询“中”，如果不存在，则直接构建此树。<br>第二步，如果在hashmap中查询到了“中”，则设置hashmap=hashmap.get(“中”)，然后跳转至第一步，匹配“国”。<br>第三步，判断该字是否是最后一个，是，isEnd=1， 否，idEnd=0。</p>
@@ -103,7 +101,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzd1i80003m8lzvmfdere8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzfk3z00034clzza8kgv94" class="article-share-link">Share</a>
       
       
     </footer>

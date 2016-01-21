@@ -84,20 +84,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>date: 2016-01-10 23:10:20<br>tags:</p>
-<h5 id="1-__u53C2_u8003_u6587_u732E"><a href="#1-__u53C2_u8003_u6587_u732E" class="headerlink" title="1. 参考文献"></a>1. 参考文献</h5><p><a href="http://my.oschina.net/fangxu/blog/32380" target="_blank" rel="external">编程珠玑 - 算法优化 - 过滤敏感词</a><br><a href="http://blog.csdn.net/yukuninfoaxiom/article/details/6057736" target="_blank" rel="external">NFA/DFA算法</a><br><a href="http://blog.csdn.net/chenssy/article/details/26961957" target="_blank" rel="external">Java实现敏感词过滤</a><br><a href="http://www.iteye.com/topic/1116520" target="_blank" rel="external">DFA敏感词过滤——java版</a></p>
-<h5 id="2-_u7B80_u4ECB"><a href="#2-_u7B80_u4ECB" class="headerlink" title="2.简介"></a>2.简介</h5><p>DFA即Deterministic Finite Automaton，也就是确定有穷自动机，它是通过event和当前的state得到下一个state，即event+state=nextstate。<br>闲话不多说，直接上图：<br><img src="/images/1.png" alt=""><br>将此图翻译成代码：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">中 = &#123;</span><br><span class="line">   isEnd = <span class="number">0</span></span><br><span class="line">   国 = &#123;&lt;br&gt;</span><br><span class="line">     isEnd = <span class="number">1</span></span><br><span class="line">        人 = &#123;isEnd = <span class="number">0</span></span><br><span class="line">             民 = &#123;isEnd = <span class="number">1</span>&#125;</span><br><span class="line">             &#125;</span><br><span class="line">        男  = &#123;</span><br><span class="line">               isEnd = <span class="number">0</span></span><br><span class="line">                人 = &#123;</span><br><span class="line">                     isEnd = <span class="number">1</span></span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line">五 = &#123;</span><br><span class="line">   isEnd = <span class="number">0</span></span><br><span class="line">   星 = &#123;</span><br><span class="line">    isEnd = <span class="number">0</span></span><br><span class="line">    红 = &#123;</span><br><span class="line">           isEnd = <span class="number">0</span></span><br><span class="line">           旗 = &#123;</span><br><span class="line">                isEnd = <span class="number">1</span></span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>算法的关键就是组装成一个带有状态的tree。</p>
-<p>第一步，在hashmap中查询“中”，如果不存在，则直接构建此树。<br>第二步，如果在hashmap中查询到了“中”，则设置hashmap=hashmap.get(“中”)，然后跳转至第一步，匹配“国”。<br>第三步，判断该字是否是最后一个，是，isEnd=1， 否，idEnd=0。</p>
-<p>接下来过滤文本内容。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> i = beginIndex; i &lt; txt.length() ; i++)&#123;</span><br><span class="line">			word = txt.charAt(i);</span><br><span class="line">			nowMap = (<span class="built_in">Map</span>) nowMap.<span class="literal">get</span>(word);     <span class="comment">//获取指定key</span></span><br><span class="line">			<span class="keyword">if</span>(nowMap != <span class="keyword">null</span>)&#123;     <span class="comment">//存在，则判断是否为最后一个</span></span><br><span class="line">				matchFlag++;     <span class="comment">//找到相应key，匹配标识+1 </span></span><br><span class="line">				<span class="keyword">if</span>(<span class="string">"1"</span>.equals(nowMap.<span class="literal">get</span>(<span class="string">"isEnd"</span>)))&#123;       <span class="comment">//如果为最后一个匹配规则,结束循环，返回匹配标识数</span></span><br><span class="line">					flag = <span class="keyword">true</span>;       <span class="comment">//结束标志位为true   </span></span><br><span class="line">					<span class="keyword">if</span>(SensitivewordFilter.minMatchTYpe == matchType)&#123;    <span class="comment">//最小规则，直接返回,最大规则还需继续查找</span></span><br><span class="line">						<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;     <span class="comment">//不存在，直接返回</span></span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对特殊字符过滤<br>有时候敏感词会出现一些变体，如强，，，奸 强   奸   强*，，，奸。<br>这个时候就需要对文本做一些预处理。方法如下：<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> <span class="built_in">regexp</span> = <span class="string">"[^a-zA-Z0-9\u4E00-\u9FA5]"</span>;</span><br><span class="line"><span class="built_in">String</span> content = <span class="string">"强，，，奸 强   奸   强*，，，奸"</span>;</span><br><span class="line"><span class="built_in">String</span> str = content.replaceAll(<span class="built_in">regexp</span>, <span class="string">""</span>);</span><br></pre></td></tr></table></figure></p>
-<p>效果杠杠的</p>
-<p>#####3.测试数据<br><a href="/images/2.png"></a><br>如图所示，敏感词库共有1071课树，匹配的文本共1636字，包含94个铭感词，完全匹配出来只需3毫秒。</p>
-<p><a href="/images/3.png"></a><br>如果在相同测试条件下，只需判断文本中是否存在铭感词，则效率更快，只需0毫秒。</p>
-
+<h5 id="1-__u53C2_u8003_u6587_u732E"><a href="#1-__u53C2_u8003_u6587_u732E" class="headerlink" title="1. 参考文献"></a>1. 参考文献</h5><p><a href="http://my.oschina.net/fangxu/blog/32380">编程珠玑 - 算法优化 - 过滤敏感词</a><br><a href="http://blog.csdn.net/yukuninfoaxiom/article/details/6057736">NFA/DFA算法</a><br><a href="http://blog.csdn.net/chenssy/article/details/26961957">Java实现敏感词过滤</a><br><a href="http://www.iteye.com/topic/1116520">DFA敏感词过滤——java版</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2016/01/10/敏感词过滤/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzd1i80003m8lzvmfdere8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzfk3z00034clzza8kgv94" class="article-share-link">Share</a>
       
       
     </footer>
@@ -139,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cijnzd1i20002m8lzreykvuof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cijnzfk3x00024clz2j7yssws" class="article-share-link">Share</a>
       
       
     </footer>
@@ -179,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cijnzd1hg0001m8lzbrw0r0dy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cijnzfk3s00014clzyzfuii1g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cijnzd1ik0005m8lzoo92l1n6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cijnzfk4e00054clzrh1qnd0j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cijnzd1iu0007m8lz7idhi6fn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cijnzfk4p00074clz4bvsiyrg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -291,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cijnzd1in0006m8lzn434osi4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cijnzfk4i00064clzrlu35z4q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -334,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cijnzd1if0004m8lzi5497px7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cijnzfk4a00044clzdnnxzz3m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -372,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/my-first-post/" data-id="cijnzd1eb0000m8lzy0zumy6w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/my-first-post/" data-id="cijnzfk1i00004clzs00c2d8q" class="article-share-link">Share</a>
       
       
     </footer>
