@@ -61,6 +61,83 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-修复ichord-At-js插件的中文不支持问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/18/修复ichord-At-js插件的中文不支持问题/" class="article-date">
+  <time datetime="2016-02-18T07:02:27.000Z" itemprop="datePublished">2016-02-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/18/修复ichord-At-js插件的中文不支持问题/">修复ichord/At.js插件的中文不支持问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>date: 2016-02-18 15:02:27</p>
+<p>问题描述：<br>at.js插件使用非常方便，但我发现当输入中文时，却无法匹配到结果，问题如下：<br>1.输入“#12”能匹配到“12中国”，如图：<br><img src="/images/4.png" alt="/images/4.png"><br>2.继续输入“#12中”，却无法匹配到“12中国”，如图：<br><img src="/images/5.png" alt="/images/5.png"><br>3.如果我在一开始就输入“#中”，则能匹配到“12中国”，如图：<br><img src="/images/6.png" alt="/images/6.png"></p>
+<p>description：</p>
+<ol>
+<li>if i input “#12”, can match to “12中国”<br><img src="/images/4.png" alt="/images/4.png"></li>
+<li>if i input “#12中”, can not match to “12中国”<br><img src="/images/5.png" alt="/images/5.png"></li>
+<li>if i input “#中”, can match to “12中国”<br><img src="/images/6.png" alt="/images/6.png"></li>
+</ol>
+<p>解决方案：<br>通过阅读源码发现，在jquery.atwho.js文件中有一个DEFAULT_CALLBACKS方法，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">matcher: <span class="function"><span class="keyword">function</span>(<span class="params">flag, subtext, should_startWithSpace, acceptSpaceBar</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _a, _y, match, regexp, space;</span><br><span class="line">    flag = flag.replace(<span class="regexp">/[\-\[\]\/\&#123;\&#125;\(\)\*\+\?\.\\\^\$\|]/g</span>, <span class="string">"\\$&amp;"</span>);</span><br><span class="line">    <span class="keyword">if</span> (should_startWithSpace) &#123;</span><br><span class="line">      flag = <span class="string">'(?:^|\\s)'</span> + flag;</span><br><span class="line">    &#125;</span><br><span class="line">    _a = <span class="built_in">decodeURI</span>(<span class="string">"%C3%80"</span>);</span><br><span class="line">    _y = <span class="built_in">decodeURI</span>(<span class="string">"%C3%BF"</span>);</span><br><span class="line">    space = acceptSpaceBar ? <span class="string">"\ "</span> : <span class="string">""</span>;</span><br><span class="line">    regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(flag + <span class="string">"([A-Za-z"</span> + _a + <span class="string">"-"</span> + _y + <span class="string">"0-9_"</span> + space + <span class="string">"\'\.\+\-]*)$|"</span> + flag + <span class="string">"([^\\x00-\\xff]*)$"</span>, <span class="string">'gi'</span>);</span><br><span class="line">    match = regexp.exec(subtext);</span><br><span class="line">    <span class="keyword">if</span> (match) &#123;</span><br><span class="line">      <span class="keyword">return</span> match[<span class="number">2</span>] || match[<span class="number">1</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>问题出在这段正则匹配里<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">regexp</span> = <span class="keyword">new</span> <span class="built_in">RegExp</span>(flag + <span class="string">"([A-Za-z"</span> + _a + <span class="string">"-"</span> + _y + <span class="string">"0-9_"</span> + <span class="built_in">space</span> + <span class="string">"\'\.\+\-]*)$|"</span> + flag + <span class="string">"([^\\x00-\\xff]*)$"</span>, <span class="comment">'gi');</span></span><br></pre></td></tr></table></figure></p>
+<p>不难发现，匹配规则里缺少了对中文的支持。找到问题后，解决就容易了，只要修改这段匹配规则就ok了。<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">regexp</span> = <span class="keyword">new</span> <span class="built_in">RegExp</span>(flag + <span class="string">"([A-Za-z"</span> + _a + <span class="string">"-"</span> + _y + <span class="string">"0-9\u4e00-\u9fa5_"</span> + <span class="built_in">space</span> + <span class="string">"\'\.\+\-]*)$|"</span> + flag + <span class="string">"([^\\x00-\\xff]*)$"</span>, <span class="comment">'gi');</span></span><br></pre></td></tr></table></figure></p>
+<p>测试：<br>输入“#12中”，能匹配到“12中国”，如图：<br><img src="/images/7.png" alt="/images/7.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cikrybljg0006eolzxta312tj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mybatis缓存问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/01/mybatis缓存问题/" class="article-date">
+  <time datetime="2016-02-01T03:08:19.000Z" itemprop="datePublished">2016-02-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: mybatis缓存问题<br>date: 2016-02-01 11:08:19</p>
+<p>mybatis 查询中，查询同一条数据，会引用同一个对象，在有些业务情况下，会遇到问题，比如对数据重复修改</p>
+<p>【mybatis】多次查询缓存的问题   <a href="http://www.thinksaas.cn/group/topic/98087/" target="_blank" rel="external">http://www.thinksaas.cn/group/topic/98087/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cikrybljo0008eolz7c0hi1jt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-敏感词过滤" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/01/10/敏感词过滤/" class="article-date">
@@ -93,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cijnzizy80003fglzjbsnhe2j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cikryblj90003eolz3gi8deh5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -135,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cijnzizy10002fglzt13sxxvm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cikryblj70002eolzp582dqpt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -175,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cijnzizxs0001fglzr5k3vssw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cikryblix0001eolzwrxfqtrg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cijnzizyq0005fglzhddad3l8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cikryblje0005eolzkgp2paoc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,23 +310,30 @@
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/06/mybatis-user-guide/">mybatis-user-guide</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>title: mybatis-user-guide<br>date: 2016-01-06 20:28:17</p>
+<ol>
+<li>java注解</li>
+<li>settings 参数配置</li>
+<li>自定义类处理器</li>
+<li>plugins 拦截</li>
+<li>environments 可以配置多种环境，将sql映射应用于多种数据库之中。</li>
+<li>transactioinManager 事务管理  创建事务接口的实现，自定义事务管理</li>
+<li>assocation 关联查询 复杂对象映射</li>
+<li>discriminator 鉴别器</li>
+<li>cache 自定义缓存</li>
+<li>动态sql</li>
+</ol>
+<p>源码阅读心得：</p>
+<ol>
+<li>SqlSessionFactoryBuilder， SqlSessionFactory， SqlSession</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cijnzj01w0007fglze2kq7425" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cikrybljs0009eolztun8tf9f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -287,7 +371,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cijnzizyu0006fglzaspqi8za" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cikryblji0007eolzr8o5867n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cijnzizyl0004fglzp26g8ai8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cikrybljb0004eolzdqrv1ts7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -368,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/my-first-post/" data-id="cijnzizwk0000fglzdeh5kt43" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/my-first-post/" data-id="cikryblh30000eolztczioon7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -393,7 +477,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -405,6 +489,14 @@
       <ul>
         
           <li>
+            <a href="/2016/02/18/修复ichord-At-js插件的中文不支持问题/">修复ichord/At.js插件的中文不支持问题</a>
+          </li>
+        
+          <li>
+            <a href="/2016/02/01/mybatis缓存问题/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2016/01/10/敏感词过滤/">敏感词过滤</a>
           </li>
         
@@ -414,14 +506,6 @@
         
           <li>
             <a href="/2016/01/07/资源池/">资源池</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/06/单词积累/">单词积累</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/06/mybatis-user-guide/">mybatis-user-guide</a>
           </li>
         
       </ul>
