@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   
-  <title>克逊的个人博客</title>
+  <title>mybatis-user-guide | 克逊的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: mybatis-user-guidedate: 2016-01-06 20:28:17
+  <meta name="description" content="date: 2016-01-06 20:28:17
 
 java注解
 settings 参数配置
@@ -14,12 +14,13 @@ plugins 拦截
 environments 可以配置多种环境，将sql映射应用于多种数据库之中。
 transactioinManager 事务管理  创建事务接口的实现，自定义事务管理
 assocation 关联查询 复杂对象映射
-d">
+discriminator 鉴别器
+cache 自定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="克逊的个人博客">
+<meta property="og:title" content="mybatis-user-guide">
 <meta property="og:url" content="http://yoursite.com/2016/01/06/mybatis-user-guide/index.html">
 <meta property="og:site_name" content="克逊的个人博客">
-<meta property="og:description" content="title: mybatis-user-guidedate: 2016-01-06 20:28:17
+<meta property="og:description" content="date: 2016-01-06 20:28:17
 
 java注解
 settings 参数配置
@@ -28,11 +29,12 @@ plugins 拦截
 environments 可以配置多种环境，将sql映射应用于多种数据库之中。
 transactioinManager 事务管理  创建事务接口的实现，自定义事务管理
 assocation 关联查询 复杂对象映射
-d">
-<meta property="og:updated_time" content="2016-02-05T02:36:03.000Z">
+discriminator 鉴别器
+cache 自定">
+<meta property="og:updated_time" content="2016-02-24T11:06:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="克逊的个人博客">
-<meta name="twitter:description" content="title: mybatis-user-guidedate: 2016-01-06 20:28:17
+<meta name="twitter:title" content="mybatis-user-guide">
+<meta name="twitter:description" content="date: 2016-01-06 20:28:17
 
 java注解
 settings 参数配置
@@ -41,7 +43,8 @@ plugins 拦截
 environments 可以配置多种环境，将sql映射应用于多种数据库之中。
 transactioinManager 事务管理  创建事务接口的实现，自定义事务管理
 assocation 关联查询 复杂对象映射
-d">
+discriminator 鉴别器
+cache 自定">
   
     <link rel="alternative" href="/atom.xml" title="克逊的个人博客" type="application/atom+xml">
   
@@ -97,9 +100,19 @@ d">
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mybatis-user-guide
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: mybatis-user-guide<br>date: 2016-01-06 20:28:17</p>
+        <p>date: 2016-01-06 20:28:17</p>
 <ol>
 <li>java注解</li>
 <li>settings 参数配置</li>
@@ -116,11 +129,29 @@ d">
 <ol>
 <li>SqlSessionFactoryBuilder， SqlSessionFactory， SqlSession</li>
 </ol>
+<ol>
+<li>构建SqlSessionFactory<br>a. 从xml构建<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"</span><br><span class="line">"http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">environments</span> <span class="attribute">default</span>=<span class="value">"development"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">environment</span> <span class="attribute">id</span>=<span class="value">"development"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">transactionManager</span> <span class="attribute">type</span>=<span class="value">"JDBC"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">dataSource</span> <span class="attribute">type</span>=<span class="value">"POOLED"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driver"</span> <span class="attribute">value</span>=<span class="value">"$&#123;driver&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"$&#123;url&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"$&#123;username&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"$&#123;password&#125;"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dataSource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">environment</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">environments</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">mapper</span> <span class="attribute">resource</span>=<span class="value">"org/mybatis/example/BlogMapper.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>b.通过java程序构建<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DataSource dataSource = BlogDataSourceFactory.getBlogDataSource();</span><br><span class="line">TransactionFactory transactionFactory = <span class="keyword">new</span></span><br><span class="line">JdbcTransactionFactory();</span><br><span class="line">Environment environment = <span class="keyword">new</span> Environment(<span class="string">"development"</span>, transactionFactory, dataSource);</span><br><span class="line"><span class="keyword">Configuration</span> <span class="keyword">configuration</span> = <span class="keyword">new</span> <span class="keyword">Configuration</span>(environment);</span><br><span class="line"><span class="keyword">configuration</span>.addMapper(BlogMapper.class);</span><br><span class="line">SqlSessionFactory sqlSessionFactory =</span><br><span class="line"><span class="keyword">new</span> SqlSessionFactoryBuilder().build(<span class="keyword">configuration</span>);</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>简单的sql语句可以用java注解完成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.example;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BlogMapper</span> </span>&#123;</span><br><span class="line"><span class="annotation">@Select</span>(<span class="string">"SELECT * FROM blog WHERE id = #&#123;id&#125;"</span>)</span><br><span class="line"><span class="function">Blog <span class="title">selectBlog</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>xml映射配置文件<br>a.properties属性</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dataSource type=<span class="string">"POOLED"</span>&gt;</span><br><span class="line">&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"driver"</span> value=<span class="string">"$&#123;driver&#125;"</span>/&gt;</span><br><span class="line">&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"url"</span> value=<span class="string">"$&#123;url&#125;"</span>/&gt;</span><br><span class="line">&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"username"</span> value=<span class="string">"$&#123;username&#125;"</span>/&gt;</span><br><span class="line">&lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span> value=<span class="string">"$&#123;password&#125;"</span>/&gt;</span><br><span class="line">&lt;/dataSource&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>b.settings设置<br>这个属性极其重要，他会改变mybatis运行时的方式，配置如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">settings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"cacheEnabled"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"lazyLoadingEnabled"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"multipleResultSetsEnabled"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"useColumnLabel"</span> <span class="attribute">value</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"useGeneratedKeys"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"enhancementEnabled"</span> <span class="attribute">value</span>=<span class="value">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"defaultExecutorType"</span> <span class="attribute">value</span>=<span class="value">"SIMPLE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"defaultStatementTimeout"</span> <span class="attribute">value</span>=<span class="value">"25000"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">settings</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>c.typeAliases类型别名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">type</span>Aliases&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Author"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Author"</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Blog"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Blog"</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Comment"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Comment"</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Post"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Post"</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Section"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Section"</span>/&gt;</span><br><span class="line">&lt;<span class="built_in">type</span>Alias <span class="built_in">alias</span>=<span class="string">"Tag"</span> <span class="built_in">type</span>=<span class="string">"domain.blog.Tag"</span>/&gt;</span><br><span class="line">&lt;/<span class="built_in">type</span>Aliases&gt;</span><br></pre></td></tr></table></figure></p>
+<p>d.typeHandlers类型处理器<br>默认的如：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">类型处理器            Java 类型         JDBC 类型</span><br><span class="line"><span class="keyword">BooleanTypeHandler </span> <span class="keyword">Boolean,boolean </span> 任何兼容的布尔值</span><br><span class="line"><span class="keyword">ByteTypeHandler </span>	<span class="keyword">Byte,byte </span>       任何兼容的数字或字节类型</span><br></pre></td></tr></table></figure></p>
+<p>也可以自定义：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExampleTypeHandler.java</span></span><br><span class="line"><span class="keyword">public</span> class ExampleTypeHandler implements TypeHandler &#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> setParameter(PreparedStatement ps, <span class="built_in">int</span> i, <span class="keyword">Object</span></span><br><span class="line">parameter,JdbcType jdbcType) <span class="keyword">throws</span> SQLException &#123;</span><br><span class="line">ps.setString(i, (<span class="keyword">String</span>) parameter);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">Object</span> getResult(ResultSet rs, <span class="keyword">String</span> columnName)</span><br><span class="line"><span class="keyword">throws</span> SQLException &#123;</span><br><span class="line"><span class="keyword">return</span> rs.getString(columnName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">Object</span> getResult(CallableStatement cs, <span class="built_in">int</span> columnIndex)</span><br><span class="line"><span class="keyword">throws</span> SQLException &#123;</span><br><span class="line"><span class="keyword">return</span> cs.getString(columnIndex);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// MapperConfig.xml</span></span><br><span class="line">&lt;typeHandlers&gt;</span><br><span class="line">&lt;typeHandler javaType=<span class="string">"String"</span> jdbcType=<span class="string">"VARCHAR"</span></span><br><span class="line">handler=<span class="string">"org.mybatis.example.ExampleTypeHandler"</span>/&gt;</span><br><span class="line">&lt;/typeHandlers&gt;</span><br></pre></td></tr></table></figure></p>
+<p>e.<br>f.<br>g.<br>h.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cikryf5mc0009aglzcnzl7dtj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cillmtqxu0009s8lzk8lzn1uy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +183,7 @@ d">
 
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-mybatis-user-guide" data-title="" data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/"></div>
+    <div class="ds-thread" data-thread-key="post-mybatis-user-guide" data-title="mybatis-user-guide" data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
