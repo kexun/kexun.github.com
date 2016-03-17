@@ -61,6 +61,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-第三方im系统调研" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/17/第三方im系统调研/" class="article-date">
+  <time datetime="2016-03-17T05:11:19.000Z" itemprop="datePublished">2016-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: 第三方im系统调研<br>date: 2016-03-17 13:11:19<br>tags: im</p>
+<p>一. 参考文献</p>
+<p><a href="http://yaocoder.blog.51cto.com/2668309/1412029" target="_blank" rel="external">IM系统架构设计之浅见</a></p>
+<p>二. 第三方IM平台调研<br><a href="http://netease.im/im?&amp;from=jj" target="_blank" rel="external">网易云信</a></p>
+<p><a href="http://www.easemob.com/price" target="_blank" rel="external">环信</a></p>
+<pre><code>1. 环信这样设计的目的有2个：
+尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。
+大多数APP都有自己的服务器后台，有自己的用户体系。所以环信要尽力做好的环节是尽可能方便开发者把环信和自己的用户体系集成，而不是为开发者提供他们可能并不会用的用户体系。
+
+2.可以发送阅后即焚之类的消息吗？
+阅后即焚，是指对方查看你发的消息后，双方同时删除。
+这个功能可以用环信的“已读”回调实现，当对方查看消息后，发送已读通知，双方同时删除就可以了。
+
+3.后端调用rest接口 http://docs.easemob.com/doku.p ... og%23 导出聊天记录，保存到你服务器，然后你自己去服务器获取。
+接口限流说明: 同一个IP每秒最多可调用1次, 超过的部分会返回503错误,所以在调用程序中, 如果碰到了这样的错误, 需要稍微暂停一下并且重试。如果该限流控制不满足需求，请联系商务经理开放更高的权限。(一次最多返回1000条)
+
+使用示例1：根据timestamp查询聊天记录 在URL后面加上参数
+ql=select * where timestamp&gt;1403164734226
+或者
+ql=select * where timestamp&lt;1403164734226
+
+使用示例2：分页获取数据
+使用limit参数获取数据完毕后，如果后边还有数据，会返回一个不为空的cursor回来，使用这个cursor就能进行分页获取了。
+分页示例：根据之前获取数据返回的cursor继续获取后面的20条数据。在url后面加上参数 (limit最大值为1000)
+limit=20
+cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zVllyT2pqUUNBZFFBUWFHaXZJUGVNRWVPMjdMRWo5b0w4dEFB
+
+管理后台支持的统计数据：
+新增注册用户数， 每日活跃用户数， 每日新增活跃用户数， 每日发送消息用户数， 单聊， 群聊
+</code></pre><p><a href="http://www.rongcloud.cn/" target="_blank" rel="external">融云</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cilw2w2kh0002eklzzihn1raa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-修复ichord-At-js插件的中文不支持问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/18/修复ichord-At-js插件的中文不支持问题/" class="article-date">
@@ -98,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cillnp1nl0006rglz9h4yv5gr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cilw2w2kx0007eklzl0rc17z4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -127,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cillnp1nv0008rglzgupm8736" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cilw2w2l60009eklzy8aoq4o2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -169,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cillnp1n60003rglzqbs3juag" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cilw2w2kl0004eklzzo7o1aap" class="article-share-link">Share</a>
       
       
     </footer>
@@ -211,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cillnp1n10002rglzxfp8qyyv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cilw2w2kk0003eklz0udtac0r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -251,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cillnp1mw0001rglz7sj96bjh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cilw2w2jz0001eklzy9clnx8t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -293,7 +349,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cillnp1nf0005rglznf6vv0yl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cilw2w2ku0006eklzihd6ysnu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -345,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cillnp1o00009rglzu0p9h9an" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cilw2w2la000aeklz3aeliqzo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -383,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cillnp1nr0007rglzin7jqs8i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cilw2w2l30008eklzpjf8g5e0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -426,7 +482,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cillnp1nc0004rglzm1mts9me" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cilw2w2kp0005eklzsktm8fvo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -436,44 +492,10 @@
 
 
   
-    <article id="post-my-first-post" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/01/05/my-first-post/" class="article-date">
-  <time datetime="2016-01-05T06:32:40.000Z" itemprop="datePublished">2016-01-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/05/my-first-post/">第一个博客献给我的老婆</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>date: 2016-01-05 14:32:40</p>
-<p>感谢老婆大人对我的支持，有你在身边真好，爱你 么么哒</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/my-first-post/" data-id="cillnp1j00000rglzde4gyn9u" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -489,7 +511,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -499,6 +521,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/17/第三方im系统调研/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2016/02/18/修复ichord-At-js插件的中文不支持问题/">修复ichord/At.js插件的中文不支持问题</a>
@@ -514,10 +540,6 @@
         
           <li>
             <a href="/2016/01/07/正则表达式学习笔记/">正则表达式学习笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/07/资源池/">资源池</a>
           </li>
         
       </ul>
