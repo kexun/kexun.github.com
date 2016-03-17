@@ -89,26 +89,33 @@
 <p>二. 第三方IM平台调研<br><a href="http://netease.im/im?&amp;from=jj" target="_blank" rel="external">网易云信</a></p>
 <p><a href="http://www.easemob.com/price" target="_blank" rel="external">环信</a></p>
 <ol>
-<li>环信这样设计的目的有2个：<br> 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。<br> 大多数APP都有自己的服务器后台，有自己的用户体系。所以环信要尽力做好的环节是尽可能方便开发者把环信和自己的用户体系集成，而不是为开发者提供他们可能并不会用的用户体系。</li>
+<li><p>环信这样设计的目的有2个：<br> 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。<br> 大多数APP都有自己的服务器后台，有自己的用户体系。所以环信要尽力做好的环节是尽可能方便开发者把环信和自己的用户体系集成，而不是为开发者提供他们可能并不会用的用户体系。<br> <img src="http://docs.easemob.com/lib/exe/fetch.php?media=systemarch.png" alt=""></p>
+</li>
+<li><p>可以发送阅后即焚之类的消息吗？<br>阅后即焚，是指对方查看你发的消息后，双方同时删除。<br>这个功能可以用环信的“已读”回调实现，当对方查看消息后，发送已读通知，双方同时删除就可以了。</p>
+</li>
+<li><p>后端调用rest接口 <a href="http://docs.easemob.com/doku.p" target="_blank" rel="external">http://docs.easemob.com/doku.p</a> … og%23 导出聊天记录，保存到你服务器，然后你自己去服务器获取。<br>接口限流说明: 同一个IP每秒最多可调用1次, 超过的部分会返回503错误,所以在调用程序中, 如果碰到了这样的错误, 需要稍微暂停一下并且重试。如果该限流控制不满足需求，请联系商务经理开放更高的权限。(一次最多返回1000条)</p>
+<p> 使用示例1：根据timestamp查询聊天记录 在URL后面加上参数<br> ql=select <em> where timestamp&gt;1403164734226<br> 或者<br> ql=select </em> where timestamp&lt;1403164734226<br> 使用示例2：分页获取数据<br> 使用limit参数获取数据完毕后，如果后边还有数据，会返回一个不为空的cursor回来，使用这个cursor就能进行分页获取了。<br> 分页示例：根据之前获取数据返回的cursor继续获取后面的20条数据。在url后面加上参数 (limit最大值为1000)<br> limit=20<br> cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zVllyT2pqUUNBZFFBUWFHaXZJUGVNRWVPMjdMRWo5b0w4dEFB</p>
+</li>
 </ol>
-<p>2.可以发送阅后即焚之类的消息吗？<br>阅后即焚，是指对方查看你发的消息后，双方同时删除。<br>这个功能可以用环信的“已读”回调实现，当对方查看消息后，发送已读通知，双方同时删除就可以了。</p>
-<p>3.后端调用rest接口 <a href="http://docs.easemob.com/doku.p" target="_blank" rel="external">http://docs.easemob.com/doku.p</a> … og%23 导出聊天记录，保存到你服务器，然后你自己去服务器获取。<br>接口限流说明: 同一个IP每秒最多可调用1次, 超过的部分会返回503错误,所以在调用程序中, 如果碰到了这样的错误, 需要稍微暂停一下并且重试。如果该限流控制不满足需求，请联系商务经理开放更高的权限。(一次最多返回1000条)</p>
-<pre><code>使用示例1：根据timestamp查询聊天记录 在URL后面加上参数
-ql=select * where timestamp&gt;1403164734226
-或者
-ql=select * where timestamp&lt;1403164734226
-使用示例2：分页获取数据
-使用limit参数获取数据完毕后，如果后边还有数据，会返回一个不为空的cursor回来，使用这个cursor就能进行分页获取了。
-分页示例：根据之前获取数据返回的cursor继续获取后面的20条数据。在url后面加上参数 (limit最大值为1000)
-limit=20
-cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zVllyT2pqUUNBZFFBUWFHaXZJUGVNRWVPMjdMRWo5b0w4dEFB
-</code></pre><p>管理后台支持的统计数据：新增注册用户数， 每日活跃用户数， 每日新增活跃用户数， 每日发送消息用户数， 单聊， 群聊</p>
+<p>管理后台支持的统计数据：新增注册用户数， 每日活跃用户数， 每日新增活跃用户数， 每日发送消息用户数， 单聊， 群聊</p>
 <p><a href="http://www.rongcloud.cn/" target="_blank" rel="external">融云</a></p>
+<ol>
+<li><p>架构介绍<br> 融云提供的即时消息传输服务，不在 App 之外建立并行的用户体系，不需要同步用户账户，不影响 App 现有的系统架构与帐号体系，与现有业务体系能够实现完美融合。</p>
+<p> 融云的架构设计上具有如下特点：</p>
+<p> 无需改变现有 App 的架构，直接嵌入现有代码框架中；<br> 无需改变现有 App Server 的架构，独立部署一份用于用户授权的 Service 即可；<br> 专注于提供通讯能力，使用私有的二进制通信协议，消息轻量、有序、不丢消息；<br> 安全的身份认证和授权方式，无需担心 SDK 能力滥用（盗用身份的垃圾消息、垃圾群发）问题。<br> <img src="http://www.rongcloud.cn/docs/assets/img/guide/archietecture.png" alt=""><br> 如图：</p>
+<p> 蓝色为您的应用（App）和应用服务器（App Server），用户数据（User Data）和用户好友消息（Friend Relationship Data）保存在您的应用服务器上，融云不需要同步 App 的用户系统和好友关系；绿色为融云服务器（RongCloud Server）和融云 SDK，支持快速集成和平滑迁移。</p>
+<p> 蓝色箭头表示您自己的业务数据经由您自己的应用服务器；绿色箭头表示消息需要经过融云服务器转发（IM 的离线、通知等逻辑决定了消息必须经由服务器进行一次转发）；橙色箭头表示您的应用服务器只需要和融云服务器进行身份授权，不需要您提交详细用户资料。</p>
+</li>
+<li><p>暂时不支持阅后即焚功能</p>
+</li>
+<li>获取 APP 内指定某天某小时内的所有会话消息记录的下载地址（目前支持二人会话、讨论组、群组、聊天室、客服、系统通知消息历史记录下载）URL：<a href="https://api.cn.ronghub.com/message/history.[format" target="_blank" rel="external">https://api.cn.ronghub.com/message/history.[format</a>]</li>
+<li>管理后台支持的统计数据：活跃人数， 新增人数， 发消息人数， 新增讨论组人数， 还有部分付费功能。</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cilw386t30002nclzuuvyrhaw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cilw4dvbp00025slzpjd24fku" class="article-share-link">Share</a>
       
       
     </footer>
@@ -155,7 +162,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cilw386to0007nclzikgd9g33" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cilw4dvc900075slzbml56zmk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -184,7 +191,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cilw386tx0009nclzp5lhjxpa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cilw4dvch00095slzhrojqhaj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -226,7 +233,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cilw386t90004nclzqgugcs7d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cilw4dvbw00045slzw038t3mb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -268,7 +275,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cilw386t60003nclzigldxqa2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/正则表达式学习笔记/" data-id="cilw4dvbr00035slz9dvqf4jz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +315,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cilw386t00001nclzkuefr7o7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/07/资源池/" data-id="cilw4dvbl00015slzlpe1v70z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -350,7 +357,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cilw386tk0006nclz76vjlncu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/单词积累/" data-id="cilw4dvc600065slztdmezq1u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -402,7 +409,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cilw386u0000anclzco070w6t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/mybatis-user-guide/" data-id="cilw4dvcl000a5slz79uxhfrj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -440,7 +447,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cilw386tt0008nclzraa7am4j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/06/temp/" data-id="cilw4dvce00085slzsrs0a9kw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -483,7 +490,7 @@ cursor=MTYxOTcyOTYyNDpnR2tBQVFNQWdHa0FCZ0ZHczBKN0F3Q0FkUUFRYUdpdkt2ZU1FZU9vNU4zV
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cilw386tf0005nclzf3eq0sws" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/05/如何在github上创建个人博客-hexo篇/" data-id="cilw4dvc000055slzpbsimbw7" class="article-share-link">Share</a>
       
       
     </footer>
