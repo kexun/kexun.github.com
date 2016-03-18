@@ -9,9 +9,9 @@
 一. 参考文献
 IM系统架构设计之浅见
 二. 第三方IM平台调研网易云信
-环信
 
-环信这样设计的目的有2个： 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。 大多数APP都有自己的服">
+网易云信服务架构
+ 云信以提供客户端SDK（覆盖Android、iOS、Web、PC）和服务端OPEN API的形式提供即时通讯云服务。开发者只需想好APP的创意及UI展现方案，根据APP业务需求选择云信的相应功能接入即可。【接入云信你需要】为APP的每一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第三方im系统调研">
 <meta property="og:url" content="http://yoursite.com/2016/03/17/第三方im系统调研/index.html">
@@ -20,21 +20,23 @@ IM系统架构设计之浅见
 一. 参考文献
 IM系统架构设计之浅见
 二. 第三方IM平台调研网易云信
-环信
 
-环信这样设计的目的有2个： 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。 大多数APP都有自己的服">
+网易云信服务架构
+ 云信以提供客户端SDK（覆盖Android、iOS、Web、PC）和服务端OPEN API的形式提供即时通讯云服务。开发者只需想好APP的创意及UI展现方案，根据APP业务需求选择云信的相应功能接入即可。【接入云信你需要】为APP的每一">
+<meta property="og:image" content="http://yoursite.com/images/8.png">
+<meta property="og:image" content="http://dev.netease.im/images/upload/manage_nimuser.png">
 <meta property="og:image" content="http://docs.easemob.com/lib/exe/fetch.php?media=systemarch.png">
 <meta property="og:image" content="http://www.rongcloud.cn/docs/assets/img/guide/archietecture.png">
-<meta property="og:updated_time" content="2016-03-17T10:15:07.000Z">
+<meta property="og:updated_time" content="2016-03-18T03:47:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三方im系统调研">
 <meta name="twitter:description" content="date: 2016-03-17 13:11:19tags: im
 一. 参考文献
 IM系统架构设计之浅见
 二. 第三方IM平台调研网易云信
-环信
 
-环信这样设计的目的有2个： 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。 大多数APP都有自己的服">
+网易云信服务架构
+ 云信以提供客户端SDK（覆盖Android、iOS、Web、PC）和服务端OPEN API的形式提供即时通讯云服务。开发者只需想好APP的创意及UI展现方案，根据APP业务需求选择云信的相应功能接入即可。【接入云信你需要】为APP的每一">
   
     <link rel="alternative" href="/atom.xml" title="克逊的个人博客" type="application/atom+xml">
   
@@ -106,6 +108,45 @@ IM系统架构设计之浅见
 <p>一. 参考文献</p>
 <p><a href="http://yaocoder.blog.51cto.com/2668309/1412029" target="_blank" rel="external">IM系统架构设计之浅见</a></p>
 <p>二. 第三方IM平台调研<br><a href="http://netease.im/im?&amp;from=jj" target="_blank" rel="external">网易云信</a></p>
+<ol>
+<li><p>网易云信服务架构</p>
+<p> 云信以提供客户端SDK（覆盖Android、iOS、Web、PC）和服务端OPEN API的形式提供即时通讯云服务。<br>开发者只需想好APP的创意及UI展现方案，根据APP业务需求选择云信的相应功能接入即可。<br><img src="/images/8.png" alt=""><br>【接入云信你需要】<br>为APP的每一个用户帐号绑定一个云信帐号(ACCID)，并为之设定安全秘钥(TOKEN)。<br>调用云信提供的API来实现各种即时通讯功能。</p>
+</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li><p>网易云信用户体系</p>
+<p> accid    云信用户id    最大长度32字节，必须保证应用内唯一，不区分大小写（云信统一小写处理），只允许字母、数字及以下半角符号 @ _ . -<br>token    云信用户口令    与accid一起作为SDK连接云信服务器的凭证<br>name    推送昵称    用于任务栏推送时显示的用户昵称</p>
+<p> 网易云信的用户定义非常简单，不对应用的用户信息隐私有任何的窥探与侵入。同样，对于网易云信的accid和token体系，也不会对应用的用户帐号及密码隐私有任何风险。详情请参阅用户帐号的隐私保护<br><img src="http://dev.netease.im/images/upload/manage_nimuser.png" alt=""><br> App，指第三方app客户端;<br>AppServer，指第三方app服务端;<br>网易云信WebServer，指网易云信开放的Server级接口服务;<br>网易云信IMServer，指网易云信SDK直连的IM服务;<br>上图可以看到，网易云信的用户体系使用上有三步：</p>
+<p> 注册网易云信用户id</p>
+<p> step1，第三方app服务端通过网易云信Server注册用户接口注册用户</p>
+<p> 获取网易云信用户参数</p>
+<p> Step2，第三方app客户端第一次登录时，从第三方app服务端拿到对应的accid与token</p>
+<p> 将用户参数传给SDK</p>
+<p> Step3, 第三方app客户端把accid与token传给sdk</p>
+</li>
+<li><p>有开源的android，ios， web的ui库</p>
+</li>
+<li><p>阅后即焚</p>
+<p> 云信原生支持了文本，图片，语音，视频和地理位置等常用的消息类型；对于产品的特殊需求云信也提供自定义消息类型，产品可以使用自定义消息实现“阅后即焚”等特殊的消息类型。</p>
+</li>
+<li><p>消息历史记录保存多久 ，如何获取?</p>
+<p> SDK会保存一份本地消息历史记录，并提供了删除和查询的接口，由应用自己管理。云信服务端默认不存储应用消息历史记录，但提供保存服务端保存历史记录的服务。该服务占用服务端存储资源，是一项收费服务，最长可以保存3年。服务端保存的历史记录，同样提供查询接口供应用使用。</p>
+</li>
+<li><p>历史记录下载</p>
+<p> 查询存储在云信服务器中的单人聊天历史消息，只能查询在保存时间范围内的消息<br> 跟据时间段查询点对点消息，每次最多返回100条；<br> 不提供分页支持，第三方需要跟据时间段来查询。</p>
+</li>
+<li><p>历史消息查询返回的消息格式说明<br> 普通文本消息<br> {<br> “from”:”test1”,<br> “msgid”:792478,<br> “sendtime”:1430967883307,<br> “type”:0,//文本消息类型<br> “body”:{</p>
+<pre><code>&quot;msg&quot;:&quot;哈哈哈&quot;//消息内容
+</code></pre><p>  }<br> }</p>
+<p> 图片消息<br> {<br> “from”:”test1”,<br> “msgid”:792502,<br> “sendtime”:1430978396680,   //发送时间ms<br> “type”:1    //图片类型消息<br> “body”:{<br> “name”:”图片发送于2015-05-07 13:59”,         //图片name<br> “md5”:”9894907e4ad9de4678091277509361f7”,   //md5<br> “url”:”<a href="http://nimtest.nos.netease.com/cbc500e8-e19c-4b0f-834b-c32d4dc1075e" target="_blank" rel="external">http://nimtest.nos.netease.com/cbc500e8-e19c-4b0f-834b-c32d4dc1075e</a>“,    //生成的url<br> “ext”:”jpg”,        //图片后缀<br> “w”:6814,       //宽<br> “h”:2332,       //高<br> “size”:388245       //图片大小<br> }<br> }</p>
+<p> 语音消息<br> {<br> “from”:”test1”,<br> “msgid”:792479,<br> “sendtime”:1430967899646,   //发送时间ms<br> “type”:2    //语音类型消息<br> “body”:{<br> “dur”:4551,     //语音持续时长ms<br> “md5”:”87b94a090dec5c58f242b7132a530a01”,   //md5<br> “url”:”<a href="http://nimtest.nos.netease.com/a2583322-413d-4653-9a70-9cabdfc7f5f9" target="_blank" rel="external">http://nimtest.nos.netease.com/a2583322-413d-4653-9a70-9cabdfc7f5f9</a>“,    //生成的url<br> “ext”:”aac”,        //语音消息格式，只能是aac格式<br> “size”:16420        //语音文件大小<br> }<br> }</p>
+<p> 视频消息<br> {<br> “from”:”test1”,<br> “msgid”:792505,<br> “sendtime”:1430978424249,   //发送时间ms<br> “type”:3    //视频类型消息<br> “body”:{<br> “dur”:8003,     //视频持续时长ms<br> “md5”:”da2cef3e5663ee9c3547ef5d127f7e3e”,   //md5<br> “url”:”<a href="http://nimtest.nos.netease.com/21f34447-e9ac-4871-91ad-d9f03af20412" target="_blank" rel="external">http://nimtest.nos.netease.com/21f34447-e9ac-4871-91ad-d9f03af20412</a>“,    //生成的url<br> “w”:360,    //宽<br> “h”:480,    //高<br> “ext”:”mp4”,    //视频格式<br> “size”:16420    //视频文件大小<br> }<br> }</p>
+<p> 地理位置消息<br> {<br> “from”:”test1”,<br> “msgid”:792501,<br> “sendtime”:1430978381896,   //发送时间ms<br> “type”:4    //地理位置类型消息<br> “body”:{<br> “title”:”中国 浙江省 杭州市 网商路 599号”,  //地理位置title<br> “lng”:120.1908686708565,        // 经度<br> “lat”:30.18704515647036         // 纬度<br> }<br> }</p>
+<p> 文件消息<br> {<br> “msgid”:7925061,<br> “sendtime”:1430978435894,   //发送时间ms<br> “type”:6    //文件消息<br> “body”:{<br>“name”:”BlizzardReg.ttf”,   //文件名<br>“md5”:”79d62a35fa3d34c367b20c66afc2a500”, //文件MD5<br>“url”:”<a href="http://nimtest.nos.netease.com/08c9859d-183f-4daa-9904-d6cacb51c95b" target="_blank" rel="external">http://nimtest.nos.netease.com/08c9859d-183f-4daa-9904-d6cacb51c95b</a>“, //文件URL<br>“ext”:”ttf”,    //文件后缀类型<br>“size”:91680    //大小<br> }<br> }</p>
+<p> 第三方自定义消息<br> {<br> “msgid”:792506,<br> “sendtime”:1430978435894,   //发送时间ms<br> “type”:100, //第三方自定义消息<br> “body”:{     //自定义的内容，需要符合json格式<br> }<br> }</p>
+</li>
+</ol>
 <p><a href="http://www.easemob.com/price" target="_blank" rel="external">环信</a></p>
 <ol>
 <li><p>环信这样设计的目的有2个：<br> 尽量少的侵入开发者自己APP的业务数据和用户体系。用户体系是一个APP的最最核心的数据，在当前中国的环境下，部分开发者会比较难信赖一个第三方厂商，把自己最关键的用户体系信息托管到一个第三方平台上。<br> 大多数APP都有自己的服务器后台，有自己的用户体系。所以环信要尽力做好的环节是尽可能方便开发者把环信和自己的用户体系集成，而不是为开发者提供他们可能并不会用的用户体系。<br> <img src="http://docs.easemob.com/lib/exe/fetch.php?media=systemarch.png" alt=""></p>
@@ -134,7 +175,7 @@ IM系统架构设计之浅见
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cilw4g2uk00029klzye3tyt0a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cilx617g30002f4lz7yu8kq96" class="article-share-link">Share</a>
       
       
     </footer>
