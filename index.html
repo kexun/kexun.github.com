@@ -83,13 +83,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h6 id="date_3A_2016-06-27_14_3A51_3A04"><a href="#date_3A_2016-06-27_14_3A51_3A04" class="headerlink" title="date: 2016-06-27 14:51:04"></a>date: 2016-06-27 14:51:04</h6><h6 id="tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF"><a href="#tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF" class="headerlink" title="tags: im系统，环信，集成，聊天，即时聊天系统"></a>tags: im系统，环信，集成，聊天，即时聊天系统</h6><h5 id="u4E00_u3001_u524D_u8A00"><a href="#u4E00_u3001_u524D_u8A00" class="headerlink" title="一、前言"></a>一、前言</h5><p>本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。<br><img src="/images/12.png" alt=""><br>从上图可以看出，首先在本地服务端维护了一套用户体系，我们需要在环信系统中维护一套对应的用户体系，在环信系统中，用户id即代表着他在这套用户环境中的唯一身份表示。服务端通过环信提供的系列rest api来维护用户体系，具体管理操作有（用户的注册，修改，删除等）。服务端还可以将环信的历史聊天记录同步到本地，这些历史记录可以提供app端的历史消息查询（因为环信不会对消息做长时间的保存）<br>客户端首次登陆需要登陆环信系统，这一步相当于告诉环信我已经上线了。如果选择了自动登陆模式，那么下次登陆的时候环信sdk就会自动登陆（但是在以下情况下需要重新登录：1、主动退出 2、更换密码 3、用户被删除）。app在聊天过程中只需调用sdk的接口直接与环信服务器对接，消息的发送方和接收方都会将消息保存到本地db中，用户可以调用sdk提供的接口获取本地聊天记录，但是要注意，这些本地记录是绑定手机端的，如果更换了手机或者清空了历史记录，那么就需要调用app服务端提供的历史消息查询接口来获取历史消息。</p>
+        <h6 id="date_3A_2016-06-27_14_3A51_3A04"><a href="#date_3A_2016-06-27_14_3A51_3A04" class="headerlink" title="date: 2016-06-27 14:51:04"></a>date: 2016-06-27 14:51:04</h6><h6 id="tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF"><a href="#tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF" class="headerlink" title="tags: im系统，环信，集成，聊天，即时聊天系统"></a>tags: im系统，环信，集成，聊天，即时聊天系统</h6><h5 id="u4E00_u3001_u524D_u8A00"><a href="#u4E00_u3001_u524D_u8A00" class="headerlink" title="一、前言"></a>一、前言</h5><p>本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。</p>
+<p><img src="/images/12.png" alt=""><br>从上图可以看出，首先在本地服务端维护了一套用户体系，我们需要在环信系统中维护一套对应的用户体系，在环信系统中，用户id即代表着他在这套用户环境中的唯一身份表示。服务端通过环信提供的系列rest api来维护用户体系，具体管理操作有（用户的注册，修改，删除等）。服务端还可以将环信的历史聊天记录同步到本地，这些历史记录可以提供app端的历史消息查询（因为环信不会对消息做长时间的保存）<br>客户端首次登陆需要登陆环信系统，这一步相当于告诉环信我已经上线了。如果选择了自动登陆模式，那么下次登陆的时候环信sdk就会自动登陆（但是在以下情况下需要重新登录：1、主动退出 2、更换密码 3、用户被删除）。app在聊天过程中只需调用sdk的接口直接与环信服务器对接，消息的发送方和接收方都会将消息保存到本地db中（注意：webim端sdk不提供消息存储功能，如果有必要的话，需要调用app服务器来获取聊天记录），用户可以调用sdk提供的接口获取本地聊天记录，但是要注意，这些本地记录是绑定手机端的，如果更换了手机或者清空了历史记录，那么就需要调用app服务端提供的历史消息查询接口来获取历史消息。</p>
+<h5 id="u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE"><a href="#u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE" class="headerlink" title="二、im集成功能设计图"></a>二、im集成功能设计图</h5><p>下面我将详细介绍im系统的集成方案。首先整套系统分为前端和后端，前端包括android，ios和web网页端。android和ios的所有功能设计几乎一致，因此这里合为一起来讲解。而web网页端有所不同，他所能实现的功能相对于app会弱化很多，因此就单独介绍。服务端的功能比较重要，主要是维护im用户体系，以及维护平台用户的聊天记录。<br>下图是我对整个系统的功能设计图，分为前端和后端，这里每一个功能模块对应sdk中一系列的api。在实际开发中需要开发者对应环信的api文档进行，具体问题具体对待！ 请看 <a href="http://docs.easemob.com/im/start" target="_blank" rel="external">API文档</a></p>
 <p><img src="/images/11.jpg" alt="集成方案设计图"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipxqys7100046olzzo7doifm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipxrwa5r0004xclz9mi58k9r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -124,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/21/fund/" data-id="cipxqys8p000g6olzo66g51i4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/21/fund/" data-id="cipxrwa94000gxclz32ldh40e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/28/phoneGap/" data-id="cipxqys7u000b6olzjqqt4fuz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/28/phoneGap/" data-id="cipxrwa6h000bxclziy2byxz9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/12/js控制视频播放器/" data-id="cipxqys8k000f6olz3ok1nf7x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/12/js控制视频播放器/" data-id="cipxrwa8z000fxclzjntxpmqm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -248,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/08/通过第三方Im系统改造私信功能/" data-id="cipxqys6q00016olz3ahcgm6a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/04/08/通过第三方Im系统改造私信功能/" data-id="cipxrwa5i0001xclz19m6upo1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/22/comment-system-design/" data-id="cipxqys5c00006olzok4p9hcu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/22/comment-system-design/" data-id="cipxrwa4f0000xclzzuvol6y7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -331,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cipxqys6y00036olz7mfscmsl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/17/第三方im系统调研/" data-id="cipxrwa5p0003xclzsckers0h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -378,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cipxqys7o00096olzx4yvzhyi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/18/修复ichord-At-js插件的中文不支持问题/" data-id="cipxrwa6c0009xclzl7ci354h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -418,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cipxqys82000c6olz9begvbrp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/02/01/mybatis缓存问题/" data-id="cipxrwa8j000cxclz682qzvb2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -460,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cipxqys7900066olzt7bux8h4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/01/10/敏感词过滤/" data-id="cipxrwa5y0006xclzbzxwybvo" class="article-share-link">Share</a>
       
       
     </footer>
