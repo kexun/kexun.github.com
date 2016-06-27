@@ -5,17 +5,24 @@
   
   <title>第三方im系统集成设计方案 | 克逊的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="date: 2016-06-27 14:51:04tags: im系统，环信，集成，聊天，即时聊天系统">
+  <meta name="description" content="######date: 2016-06-27 14:51:04
+######tags: im系统，环信，集成，聊天，即时聊天系统
+#####一、前言本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。从上图可以看出，首">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第三方im系统集成设计方案">
 <meta property="og:url" content="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/index.html">
 <meta property="og:site_name" content="克逊的个人博客">
-<meta property="og:description" content="date: 2016-06-27 14:51:04tags: im系统，环信，集成，聊天，即时聊天系统">
+<meta property="og:description" content="######date: 2016-06-27 14:51:04
+######tags: im系统，环信，集成，聊天，即时聊天系统
+#####一、前言本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。从上图可以看出，首">
+<meta property="og:image" content="http://yoursite.com/images/12.jpg">
 <meta property="og:image" content="http://yoursite.com/images/11.jpg">
-<meta property="og:updated_time" content="2016-06-27T06:54:13.000Z">
+<meta property="og:updated_time" content="2016-06-27T08:09:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三方im系统集成设计方案">
-<meta name="twitter:description" content="date: 2016-06-27 14:51:04tags: im系统，环信，集成，聊天，即时聊天系统">
+<meta name="twitter:description" content="######date: 2016-06-27 14:51:04
+######tags: im系统，环信，集成，聊天，即时聊天系统
+#####一、前言本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。从上图可以看出，首">
   
     <link rel="alternative" href="/atom.xml" title="克逊的个人博客" type="application/atom+xml">
   
@@ -83,13 +90,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>date: 2016-06-27 14:51:04<br>tags: im系统，环信，集成，聊天，即时聊天系统</p>
-<p><img src="/images/11.jpg" alt=""></p>
+        <p>######date: 2016-06-27 14:51:04</p>
+<p>######tags: im系统，环信，集成，聊天，即时聊天系统</p>
+<p>#####一、前言<br>本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。<br><img src="/images/12.jpg" alt=""><br>从上图可以看出，首先在本地服务端维护了一套用户体系，我们需要在环信系统中维护一套对应的用户体系，在环信系统中，用户id即代表着他在这套用户环境中的唯一身份表示。服务端通过环信提供的系列rest api来维护用户体系，具体管理操作有（用户的注册，修改，删除等）。服务端还可以将环信的历史聊天记录同步到本地，这些历史记录可以提供app端的历史消息查询（因为环信不会对消息做长时间的保存）<br>客户端首次登陆需要登陆环信系统，这一步相当于告诉环信我已经上线了。如果选择了自动登陆模式，那么下次登陆的时候环信sdk就会自动登陆（但是在以下情况下需要重新登录：1、主动退出 2、更换密码 3、用户被删除）。app在聊天过程中只需调用sdk的接口直接与环信服务器对接，消息的发送方和接收方都会将消息保存到本地db中，用户可以调用sdk提供的接口获取本地聊天记录，但是要注意，这些本地记录是绑定手机端的，如果更换了手机或者清空了历史记录，那么就需要调用app服务端提供的历史消息查询接口来获取历史消息。</p>
+<p><img src="/images/11.jpg" alt="集成方案设计图"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipxo5u640004aclzwgmb8u7s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipxqv99u0004mklzz9treoiw" class="article-share-link">Share</a>
       
       
     </footer>
