@@ -15,7 +15,8 @@
 从上图可以看出，首先在本地服务端维护了一套用户体系，我">
 <meta property="og:image" content="http://yoursite.com/images/12.png">
 <meta property="og:image" content="http://yoursite.com/images/11.jpg">
-<meta property="og:updated_time" content="2016-06-27T09:22:44.000Z">
+<meta property="og:image" content="http://yoursite.com/images/13.jpg">
+<meta property="og:updated_time" content="2016-06-28T07:23:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三方im系统集成设计方案">
 <meta name="twitter:description" content="date: 2016-06-27 14:51:04tags: im系统，环信，集成，聊天，即时聊天系统一、前言本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。
@@ -89,9 +90,10 @@
       
         <h6 id="date_3A_2016-06-27_14_3A51_3A04"><a href="#date_3A_2016-06-27_14_3A51_3A04" class="headerlink" title="date: 2016-06-27 14:51:04"></a>date: 2016-06-27 14:51:04</h6><h6 id="tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF"><a href="#tags_3A_im_u7CFB_u7EDF_uFF0C_u73AF_u4FE1_uFF0C_u96C6_u6210_uFF0C_u804A_u5929_uFF0C_u5373_u65F6_u804A_u5929_u7CFB_u7EDF" class="headerlink" title="tags: im系统，环信，集成，聊天，即时聊天系统"></a>tags: im系统，环信，集成，聊天，即时聊天系统</h6><h4 id="u4E00_u3001_u524D_u8A00"><a href="#u4E00_u3001_u524D_u8A00" class="headerlink" title="一、前言"></a>一、前言</h4><p>本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。</p>
 <p><img src="/images/12.png" alt=""><br>从上图可以看出，首先在本地服务端维护了一套用户体系，我们需要在环信系统中维护一套对应的用户体系，在环信系统中，用户id即代表着他在这套用户环境中的唯一身份表示。服务端通过环信提供的系列rest api来维护用户体系，具体管理操作有（用户的注册，修改，删除等）。服务端还可以将环信的历史聊天记录同步到本地，这些历史记录可以提供app端的历史消息查询（因为环信不会对消息做长时间的保存）<br>客户端首次登陆需要登陆环信系统，这一步相当于告诉环信我已经上线了。如果选择了自动登陆模式，那么下次登陆的时候环信sdk就会自动登陆（但是在以下情况下需要重新登录：1、主动退出 2、更换密码 3、用户被删除）。app在聊天过程中只需调用sdk的接口直接与环信服务器对接，消息的发送方和接收方都会将消息保存到本地db中（注意：webim端sdk不提供消息存储功能，如果有必要的话，需要调用app服务器来获取聊天记录），用户可以调用sdk提供的接口获取本地聊天记录，但是要注意，这些本地记录是绑定手机端的，如果更换了手机或者清空了历史记录，那么就需要调用app服务端提供的历史消息查询接口来获取历史消息。</p>
-<h4 id="u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE"><a href="#u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE" class="headerlink" title="二、im集成功能设计图"></a>二、im集成功能设计图</h4><p>下面我将详细介绍im系统的集成方案。首先整套系统分为前端和后端，前端包括android，ios和web网页端。android和ios的所有功能设计几乎一致，因此这里合为一起来讲解。而web网页端有所不同，他所能实现的功能相对于app会弱化很多，因此就单独介绍。服务端的功能比较重要，主要是维护im用户体系，以及维护平台用户的聊天记录。<br>下图是我对整个系统的功能设计图，分为前端和后端，这里每一个功能模块对应sdk中一系列的api。在实际开发中需要开发者对应环信的api文档进行，具体问题具体对待！ 请看 <a href="http://docs.easemob.com/im/start" target="_blank" rel="external">API文档</a></p>
+<h4 id="u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE"><a href="#u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE" class="headerlink" title="二、im集成功能设计图"></a>二、im集成功能设计图</h4><p>下面我将详细介绍im系统的集成方案。首先整套系统分为前端和后端，前端包括android，ios和web网页端。android和ios的所有功能设计几乎一致，因此这里合为一起来讲解。而web网页端有所不同，他所能实现的功能相对于app会弱化很多，因此就单独介绍。服务端的功能比较重要，主要是维护im用户体系，以及维护平台用户的聊天记录。<br>下图是我对整个系统的功能设计图，分为前端和后端，这里每一个功能模块对应sdk中一系列的api。在实际开发中需要开发者对应环信的api文档进行，具体问题具体对待！ 请看 <a href="http://docs.easemob.com/im/start" target="_blank" rel="external">API文档</a>  请注意！本文是对系统功能的描述，具体实现以API文档为准！</p>
 <p><img src="/images/11.jpg" alt="集成方案设计图"></p>
-<h4 id="u4E09_u3001APP_u7AEF_u96C6_u6210"><a href="#u4E09_u3001APP_u7AEF_u96C6_u6210" class="headerlink" title="三、APP端集成"></a>三、APP端集成</h4><h5 id="1-_u767B_u9646"><a href="#1-_u767B_u9646" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>用户在第一次登陆app的时候，登陆成功以后，系统会返回用户信息，其中包括 uid和hash后的密码，app通过这两个参数调用sdk的登陆接口。</p>
+<h4 id="u4E09_u3001_u670D_u52A1_u7AEF_u96C6_u6210"><a href="#u4E09_u3001_u670D_u52A1_u7AEF_u96C6_u6210" class="headerlink" title="三、服务端集成"></a>三、服务端集成</h4><p><img src="/images/13.jpg" alt="集成方案设计图"></p>
+<h4 id="u56DB_u3001APP_u7AEF_u96C6_u6210"><a href="#u56DB_u3001APP_u7AEF_u96C6_u6210" class="headerlink" title="四、APP端集成"></a>四、APP端集成</h4><h5 id="1-_u767B_u9646"><a href="#1-_u767B_u9646" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>用户在第一次登陆app的时候，登陆成功以后，系统会返回用户信息，其中包括 uid和hash后的密码，app通过这两个参数调用sdk的登陆接口。</p>
 <h5 id="2-_u81EA_u52A8_u767B_u9646"><a href="#2-_u81EA_u52A8_u767B_u9646" class="headerlink" title="2.自动登陆"></a>2.自动登陆</h5><p>即首次登录成功后，不需要再次调用登录方法，在下次 APP 启动时，SDK 会自动为您登录。并且如果您自动登录失败，也可以读取到之前的会话信息（以上情况是在未调用登出的情况下实现的）。<br>自动登录在以下几种情况下会被取消：</p>
 <ul>
 <li>用户调用了 SDK 的登出动作；</li>
@@ -106,7 +108,7 @@
 <h5 id="7-_u63A5_u6536_u6D88_u606F"><a href="#7-_u63A5_u6536_u6D88_u606F" class="headerlink" title="7.接收消息"></a>7.接收消息</h5><p>目前系统只需要接收两种类型的消息，即文章与图片，但后续有可能加上语音，文件等类型，希望做好相应的扩展。</p>
 <h5 id="8-_u6D88_u606F_u7BA1_u7406"><a href="#8-_u6D88_u606F_u7BA1_u7406" class="headerlink" title="8.消息管理"></a>8.消息管理</h5><p>第一、获取未读消息数量<br>第二、未读消息清零<br>第三、对消息设置已读<br>第四、获取聊天记录，这里需要注意，sdk或默认把聊天记录保存到本地，app可以直接在本地读取，但是当用户更换手机，或者第一次登陆app的时候，app需要根据具体情况去服务端获取聊天记录。<br>第五、删除聊天记录</p>
 <h5 id="9-_u81EA_u5B9A_u4E49_u6269_u5C55_u6D88_u606F"><a href="#9-_u81EA_u5B9A_u4E49_u6269_u5C55_u6D88_u606F" class="headerlink" title="9.自定义扩展消息"></a>9.自定义扩展消息</h5><p>当SDK 提供的消息类型不满足需求时，开发者可以通过扩展自 SDK 提供的文本、语音、图片、位置等消息类型，从而生成自己需要的消息类型。</p>
-<h4 id="u56DB_u3001WebIm_u7AEF_u96C6_u6210"><a href="#u56DB_u3001WebIm_u7AEF_u96C6_u6210" class="headerlink" title="四、WebIm端集成"></a>四、WebIm端集成</h4><h5 id="1-_u767B_u9646-1"><a href="#1-_u767B_u9646-1" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>在web端登陆以后，返回uid和hash后的密码，登陆环信。</p>
+<h4 id="u4E94_u3001WebIm_u7AEF_u96C6_u6210"><a href="#u4E94_u3001WebIm_u7AEF_u96C6_u6210" class="headerlink" title="五、WebIm端集成"></a>五、WebIm端集成</h4><h5 id="1-_u767B_u9646-1"><a href="#1-_u767B_u9646-1" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>在web端登陆以后，返回uid和hash后的密码，登陆环信。</p>
 <h5 id="2-_u9000_u51FA_u767B_u9646"><a href="#2-_u9000_u51FA_u767B_u9646" class="headerlink" title="2.退出登陆"></a>2.退出登陆</h5><p>在web端退出登陆以后，需要退出环信。</p>
 <h5 id="3-_u53D1_u9001_u6D88_u606F"><a href="#3-_u53D1_u9001_u6D88_u606F" class="headerlink" title="3.发送消息"></a>3.发送消息</h5><p>和app端一样，支持发送文字类型和图片类型的消息。</p>
 <h5 id="4-_u6D88_u606F_u63A5_u6536"><a href="#4-_u6D88_u606F_u63A5_u6536" class="headerlink" title="4.消息接收"></a>4.消息接收</h5><p>需要在初始化的时候注册接收消息，对应的有文字类型和图片类型。</p>
@@ -115,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipxth9nu0004j8lzk8jddy1y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipz4o98j0004volzlzhdem9y" class="article-share-link">Share</a>
       
       
     </footer>
