@@ -16,7 +16,8 @@
 <meta property="og:image" content="http://yoursite.com/images/12.png">
 <meta property="og:image" content="http://yoursite.com/images/11.jpg">
 <meta property="og:image" content="http://yoursite.com/images/13.jpg">
-<meta property="og:updated_time" content="2016-06-28T07:26:53.000Z">
+<meta property="og:image" content="http://yoursite.com/images/13.jpg">
+<meta property="og:updated_time" content="2016-06-28T08:13:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三方im系统集成设计方案">
 <meta name="twitter:description" content="date: 2016-06-27 14:51:04tags: im系统，环信，集成，聊天，即时聊天系统一、前言本次app改版，需要在原有的基础之上增加即时通讯（im）功能，通过一段时间的技术选型，最终确定集成环信。环信是一家专注即时通讯的第三方平台。使用过程中，只需在环形服务器中维护用户体系，以及调用环信提供的系列sdk即可实现即时通讯功能。
@@ -93,7 +94,8 @@
 <h4 id="u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE"><a href="#u4E8C_u3001im_u96C6_u6210_u529F_u80FD_u8BBE_u8BA1_u56FE" class="headerlink" title="二、im集成功能设计图"></a>二、im集成功能设计图</h4><p>下面我将详细介绍im系统的集成方案。首先整套系统分为前端和后端，前端包括android，ios和web网页端。android和ios的所有功能设计几乎一致，因此这里合为一起来讲解。而web网页端有所不同，他所能实现的功能相对于app会弱化很多，因此就单独介绍。服务端的功能比较重要，主要是维护im用户体系，以及维护平台用户的聊天记录。<br>下图是我对整个系统的功能设计图，分为前端和后端，这里每一个功能模块对应sdk中一系列的api。在实际开发中需要开发者对应环信的api文档进行，具体问题具体对待！ 请看 <a href="http://docs.easemob.com/im/start" target="_blank" rel="external">API文档</a>  请注意！本文是对系统功能的描述，具体实现以API文档为准！</p>
 <p><img src="/images/11.jpg" alt="集成方案设计图"></p>
 <h4 id="u4E09_u3001_u670D_u52A1_u7AEF_u96C6_u6210"><a href="#u4E09_u3001_u670D_u52A1_u7AEF_u96C6_u6210" class="headerlink" title="三、服务端集成"></a>三、服务端集成</h4><p><img src="/images/13.jpg" alt=""></p>
-<h4 id="u56DB_u3001APP_u7AEF_u96C6_u6210"><a href="#u56DB_u3001APP_u7AEF_u96C6_u6210" class="headerlink" title="四、APP端集成"></a>四、APP端集成</h4><h5 id="1-_u767B_u9646"><a href="#1-_u767B_u9646" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>用户在第一次登陆app的时候，登陆成功以后，系统会返回用户信息，其中包括 uid和hash后的密码，app通过这两个参数调用sdk的登陆接口。</p>
+<h4 id="u56DB_u3001APP_u7AEF_u96C6_u6210"><a href="#u56DB_u3001APP_u7AEF_u96C6_u6210" class="headerlink" title="四、APP端集成"></a>四、APP端集成</h4><p><img src="/images/13.jpg" alt=""></p>
+<h5 id="1-_u767B_u9646"><a href="#1-_u767B_u9646" class="headerlink" title="1.登陆"></a>1.登陆</h5><p>用户在第一次登陆app的时候，登陆成功以后，系统会返回用户信息，其中包括 uid和hash后的密码，app通过这两个参数调用sdk的登陆接口。</p>
 <h5 id="2-_u81EA_u52A8_u767B_u9646"><a href="#2-_u81EA_u52A8_u767B_u9646" class="headerlink" title="2.自动登陆"></a>2.自动登陆</h5><p>即首次登录成功后，不需要再次调用登录方法，在下次 APP 启动时，SDK 会自动为您登录。并且如果您自动登录失败，也可以读取到之前的会话信息（以上情况是在未调用登出的情况下实现的）。<br>自动登录在以下几种情况下会被取消：</p>
 <ul>
 <li>用户调用了 SDK 的登出动作；</li>
@@ -117,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipz4rsix0004f0lzl5c1xcaa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/06/27/第三方Im系统集成设计方案/" data-id="cipz6f96r0004gclzl6p4px9f" class="article-share-link">Share</a>
       
       
     </footer>
